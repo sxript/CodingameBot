@@ -1,4 +1,6 @@
 const creatPrivateClash = require('../api/createPrivateClash');
+const clashEmbed = require('../embeds/clashEmbed');
+const lobbyURL = 'https://www.codingame.com/clashofcode/clash/';
 
 module.exports = {
     name: 'link',
@@ -17,5 +19,10 @@ module.exports = {
         let settingsJSON = [process.env.USER_ID, {"SHORT": true}, [], modes];
 
         let handler = creatPrivateClash(settingsJSON);
+        clashEmbed.setDescription(`@${message.author}, your custom game has been created`)
+            .addField('Handler', handler, true)
+            .addField('Lobby Link', lobbyURL+handler, true)
+
+        return message.reply(clashEmbed);
     }
 }
