@@ -10,8 +10,8 @@ const startClashByHandle = (handle) => {
         .set('Cookie', process.env.COOKIE)
         .set('TE', 'Trailers')
         .end((err, res) => {
-            if (err) console.log(err);
-            else console.log(res);
+            if (err) console.log(err.data);
+            else console.log(res.data);
         });
 };
 

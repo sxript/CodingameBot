@@ -1,4 +1,7 @@
 const startClash = require('../api/startClashByHandle.js');
+const startEmbed = require('../embeds/startEmbed');
+
+const lobbyURL = 'https://www.codingame.com/clashofcode/clash/';
 
 module.exports = {
     name: 'start',
@@ -9,6 +12,9 @@ module.exports = {
     execute(message, args) {
         const handle = [process.env.USER_ID, args[0]]
         startClash(handle);
-        return message.reply("Game Started");
+        startEmbed.fields = [];
+        startEmbed.setTitle("Game Started")
+            .setDescription(`For Lobby Link: [Click Me!](${lobbyURL + handle[1]})`)
+        return message.reply(startEmbed);
     }
 }

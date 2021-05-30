@@ -1,22 +1,17 @@
-const superagent = require('superagent');
+const axios = require('axios');
 
 const URL = 'https://www.codingame.com/services/ClashOfCode/createPrivateClash';
-
-
-const createPrivateClash = (settingsJSON) => {
-    let handler = "";
-    superagent
-        .post(URL)
-        .send(settingsJSON) // sends a JSON post body
-        .set('accept', 'json')
-        .set('Cookie', process.env.COOKIE)
-        .set('TE', 'Trailers')
-        .end((err, res) => {
-            if (err) console.log(err);
-            else handler = res.body.publicHandle;
-        });
-
-    return handler;
+const options = {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'Cookie': process.env.COOKIE, 'TE': 'Trailers' },
+    data: "",
+    url: URL,
+};
+const createPrivateClash = async (settingsJSON) => {
+    let handler;
+    options.data = settingsJSON;
+    handler = await axios(options);
+    return handler.data.publicHandle;
 };
 
 module.exports = createPrivateClash;
