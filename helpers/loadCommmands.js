@@ -1,6 +1,5 @@
 const fs = require('fs');
 
-const lobbyURL = 'https://www.codingame.com/clashofcode/clash/';
 
 const loadCommands = (client) => {
     const commandFiles = fs.readdirSync('./commands').filter((file) => file.endsWith('.js'));
