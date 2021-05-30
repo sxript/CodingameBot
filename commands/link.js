@@ -1,5 +1,3 @@
-
-
 module.exports = {
     name: 'link',
     description: 'Creates a new Game Room on Codingame',
