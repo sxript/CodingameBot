@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const loadCommands = require('../helpers/loadCommmands');
-
+const handleCooldowns = require('../helpers/handleCooldown');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -25,7 +25,7 @@ client.on('message', (message)=>{
     if (!command) return;
 
     try {
-
+        handleCooldowns(cooldowns, command, message);
         if (command.args && !args.length) {
             let reply = `You didn't provide any arguments, ${message.author}`;
             if(command.usage) {
@@ -33,6 +33,8 @@ client.on('message', (message)=>{
             }
             return message.channel.send(reply);
         }
+
+        command.execute(message, args);
     } catch (error) {
         console.error(error);
         message.reply('There was an error trying to execute that command!');
@@ -43,3 +45,5 @@ client.on('message', (message)=>{
 
 
 client.login(process.env.TOKEN);
+
+module.exports = client;

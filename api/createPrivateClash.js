@@ -1,9 +1,9 @@
 const superagent = require('superagent');
 
 const URL = 'https://www.codingame.com/services/ClashOfCode/createPrivateClash';
-const lobbyURL = 'https://www.codingame.com/clashofcode/clash/';
 
-const createPrivateClash = async (settingsJSON) => {
+
+const createPrivateClash = (settingsJSON) => {
     let handler = "";
     superagent
         .post(URL)
@@ -16,7 +16,7 @@ const createPrivateClash = async (settingsJSON) => {
             else handler = res.body.publicHandle;
         });
 
-    return lobbyURL+handler;
+    return handler;
 };
 
 module.exports = createPrivateClash;
