@@ -8,14 +8,18 @@ module.exports = {
     args: true,
     aliases: ['game'],
     cooldown: 5,
+    usage: '<mode>',
     async execute(message, args) {
-        let availableModes = ["FASTEST", "SHORTEST", "REVERSE"];
+        const availableModes = ["FASTEST", "SHORTEST", "REVERSE"];
         let modes = [];
-        args.forEach(argument => {
-            if (availableModes.includes(argument.toUpperCase())) {
-                modes.push(argument.toUpperCase());
-            }
-        })
+        if(args.map(mode => mode.toLowerCase()).includes("all")) modes = availableModes;
+        else {
+            args.forEach(argument => {
+                if (availableModes.includes(argument.toUpperCase())) {
+                    modes.push(argument.toUpperCase());
+                }
+            })
+        }
         let settingsJSON = [process.env.USER_ID, {"SHORT": true}, [], modes];
 
         let handler = await creatPrivateClash(settingsJSON);
@@ -24,7 +28,7 @@ module.exports = {
             .setTitle('Created Private Clash')
             .addField('Handler', handler, true)
             .addField('Lobby Link', `[Click Me!](${lobbyURL+handler})`, true)
-
+            .setAuthor(message.client.user.username, message.client.user.displayAvatarURL());
         return message.reply(clashEmbed);
 
     }
