@@ -7,7 +7,7 @@ client.commands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
 loadCommands(client);
 
-const { PREFIX, channel_id } = process.env;
+const { PREFIX, CHANNEL_ID } = process.env;
 
 client.on('ready',() => {
     console.log('Bot running');
@@ -15,7 +15,7 @@ client.on('ready',() => {
 
 
 client.on('message', (message) => {
-    if(!message.content.startsWith(PREFIX) || message.author.bot || message.channel.id !== channel_id) return;
+    if(!message.content.startsWith(PREFIX) || message.author.bot || message.channel.id !== CHANNEL_ID) return;
 
     const args = message.content.slice(PREFIX.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
